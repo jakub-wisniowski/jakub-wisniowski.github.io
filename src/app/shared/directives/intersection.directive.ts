@@ -6,22 +6,22 @@ import {
   Output,
   ElementRef,
   EventEmitter,
-} from "@angular/core";
-import { Observable, Subscription } from "rxjs";
-import { IntersectionObserverService } from "../services/intersection-observer.service";
+} from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { IntersectionObserverService } from '../services/intersection-observer.service';
 import {
   filter,
   throttleTime,
   map,
   distinctUntilChanged,
   tap,
-} from "rxjs/operators";
+} from 'rxjs/operators';
 
 @Directive({
-  selector: "[intersection]",
+  selector: '[intersection]',
 })
 export class IntersectionDirective implements OnInit, OnDestroy {
-  @Input() intersectionRootMargin = "0px";
+  @Input() intersectionRootMargin = '0px';
   @Input() intersectionThreshold: number | number[] = 0;
   @Input() stopWhenVisible = false;
   @Input() throttleTime = 0;
@@ -77,11 +77,11 @@ export class IntersectionDirective implements OnInit, OnDestroy {
     const elementObserver = this.intersectionObService.elementObservers.find(
       (o) => (o.element = parentSub.elements[0])
     );
-    //makes the same observer watch new element
+    // makes the same observer watch new element
     elementObserver.observer.observe(element);
     parentSub.elements.push(element);
 
-    //adds new element observer to array
+    // adds new element observer to array
     this.intersectionObService.elementObservers.push({
       element,
       observer: elementObserver.observer,

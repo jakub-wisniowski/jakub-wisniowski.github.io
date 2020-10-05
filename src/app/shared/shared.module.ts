@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule } from '@angular/core';
 import { ShowMoreButtonComponent } from './components/show-more-button/show-more-button.component';
 import { GithubButtonComponent } from './components/github-button/github-button.component';
 import { GalleryComponent } from './components/gallery/gallery.component';
@@ -14,19 +14,15 @@ import { IntersectionDirective } from './directives/intersection.directive';
     GithubButtonComponent,
     ShowMoreButtonComponent,
     ClickOutsideDirective,
-    IntersectionDirective
+    IntersectionDirective,
   ],
-  imports: [
-    CommonModule,
-    ModalModule.forRoot(),
-    RouterModule
-  ],
+  imports: [CommonModule, ModalModule.forRoot(), RouterModule],
   exports: [
     GalleryComponent,
     GithubButtonComponent,
     ShowMoreButtonComponent,
     ClickOutsideDirective,
-    IntersectionDirective
-  ]
+    IntersectionDirective,
+  ],
 })
 export class SharedModule {}
