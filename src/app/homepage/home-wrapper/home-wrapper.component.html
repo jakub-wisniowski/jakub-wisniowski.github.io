@@ -37,7 +37,7 @@
     class="hamburger-menu"
     [attr.aria-expanded]="!isCollapsed"
     aria-controls="navigation"
-    (clickOutside)="isCollapsed = true"
+    (jwClickOutside)="isCollapsed = true"
   >
     <button (click)="isCollapsed = !isCollapsed" tabindex="0">
       <img
@@ -104,14 +104,14 @@
     </div>
   </section>
   <section id="about" #about>
-    <homepage-about></homepage-about>
+    <jw-homepage-about></jw-homepage-about>
   </section>
 
   <section id="projects" #projects>
-    <homepage-projects-overview></homepage-projects-overview>
+    <jw-homepage-projects-overview></jw-homepage-projects-overview>
   </section>
 
   <section id="contact" #contact>
-    <homepage-contact></homepage-contact>
+    <jw-homepage-contact></jw-homepage-contact>
   </section>
 </div>

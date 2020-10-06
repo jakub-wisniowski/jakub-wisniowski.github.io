@@ -1,12 +1,12 @@
 import { Component, Renderer2 } from '@angular/core';
 
 @Component({
-  selector: 'homepage-projects-overview',
+  selector: 'jw-homepage-projects-overview',
   templateUrl: './projects-overview.component.html',
   styleUrls: ['./projects-overview.component.scss'],
 })
 export class ProjectsOverviewComponent {
-  projectBackgrounds = {
+  private projectBackgrounds = {
     homeLibrary: 'assets/images/home-library/home-library-icon.png',
     planets: 'assets/images/planets/list-view.png',
     aknWebApp: 'assets/images/AKN-web-app/modify-account.png',
@@ -19,7 +19,7 @@ export class ProjectsOverviewComponent {
   };
   constructor(private renderer: Renderer2) {}
 
-  handleIntersection(visible: boolean, el: HTMLElement, project: string) {
+  public handleIntersection(visible: boolean, el: HTMLElement, project: string): void {
     if (visible) {
       this.setBackground(el, this.projectBackgrounds[project]);
       this.showProjectElement(el);
@@ -28,19 +28,19 @@ export class ProjectsOverviewComponent {
     }
   }
 
-  setBackground(el: HTMLElement, projectBackground: string) {
+  private setBackground(el: HTMLElement, projectBackground: string): void {
     this.renderer.setAttribute(
       el.querySelector('img'),
       'src',
-      projectBackground
+      projectBackground,
     );
   }
 
-  showProjectElement(el: HTMLElement) {
+  private showProjectElement(el: HTMLElement): void {
     this.renderer.addClass(el, 'intersecting');
   }
 
-  hideProjectElement(el: HTMLElement) {
+  private hideProjectElement(el: HTMLElement): void {
     this.renderer.removeClass(el, 'intersecting');
   }
 }

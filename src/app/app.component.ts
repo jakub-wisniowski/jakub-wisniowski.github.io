@@ -2,19 +2,19 @@ import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
+  selector: 'jw-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = 'jakub-wisniowski';
+  public title = 'jakub-wisniowski';
 
   @ViewChild('backToTop')
-  backToTop: ElementRef;
+  public backToTop: ElementRef;
 
   constructor(private router: Router) {}
 
-  scrollToTop = () => {
+  public scrollToTop = () => {
     const button = this.backToTop.nativeElement as HTMLElement;
 
     button.classList.add('active');
@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
         return;

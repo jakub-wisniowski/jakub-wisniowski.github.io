@@ -41,13 +41,13 @@
       </div>
       <hr />
   
-      <app-gallery [slides]="project.images"></app-gallery>
+      <jw-gallery [slides]="project.images"></jw-gallery>
   
       <hr />
-      <app-github-button
+      <jw-github-button
         *ngIf="project.repo"
         [repo]="project.repo"
-      ></app-github-button>
+      ></jw-github-button>
 
       <div class="row justify-content-center align-items-center" *ngIf="!project.repo">
         <img class="icon" [src]="project.website.icon" />

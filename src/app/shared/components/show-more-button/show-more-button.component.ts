@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-show-more-button',
+  selector: 'jw-show-more-button',
   template: `<div class="button-wrapper">
     <button class="border-link" (click)="toggleDescription()">
       {{ isHidden ? 'Show gallery' : 'Hide gallery' }}
@@ -11,19 +11,20 @@ import { Component, Input } from '@angular/core';
 })
 export class ShowMoreButtonComponent {
   @Input()
-  elementId: string;
+  private elementId: string;
 
   @Input()
-  toggleClass: string;
+  private toggleClass: string;
 
-  isHidden = true;
+  public isHidden = true;
 
   constructor() {}
 
-  get elementRef() {
+  get elementRef(): HTMLElement {
     return document.getElementById(this.elementId);
   }
-  toggleDescription() {
+
+  public toggleDescription(): void {
     this.isHidden = this.elementRef.classList.contains(this.toggleClass);
 
     if (this.isHidden) {

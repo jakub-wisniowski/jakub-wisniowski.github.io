@@ -3,33 +3,33 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { IImage } from '../../../projects/models/image.model';
 
 @Component({
-  selector: 'app-gallery',
+  selector: 'jw-gallery',
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss'],
 })
 export class GalleryComponent {
   @Input()
-  slides: IImage[];
+  public slides: IImage[];
 
-  chosenImage: IImage;
+  public chosenImage: IImage;
 
-  modalRef: BsModalRef;
+  public modalRef: BsModalRef;
 
   constructor(private modalService: BsModalService) {}
 
-  handleSlideSelected(template: TemplateRef<any>, img: IImage) {
+  public handleSlideSelected(template: TemplateRef<any>, img: IImage): void {
     this.setChosenImage(img);
     this.showModal(template);
   }
 
-  setChosenImage(img: IImage) {
+  private setChosenImage(img: IImage): void {
     this.chosenImage = img;
   }
 
-  showModal(template: TemplateRef<any>) {
+  private showModal(template: TemplateRef<any>): void {
     this.modalRef = this.modalService.show(
       template,
-      Object.assign({}, { class: 'gray modal-lg' })
+      Object.assign({}, { class: 'gray modal-lg' }),
     );
   }
 }

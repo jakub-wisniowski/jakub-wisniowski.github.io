@@ -6,19 +6,19 @@ import { share } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class IntersectionObserverService {
-  elementObservers = [];
-  intersectionSubs = [];
+  public elementObservers = [];
+  public intersectionSubs = [];
 
-  addSubscription(subscription): number {
+  public addSubscription(subscription): number {
     this.intersectionSubs.push(subscription);
     return this.intersectionSubs.length - 1;
   }
 
-  fromIntersectionObserver$(
+  private fromIntersectionObserver$(
     element: HTMLElement,
     config: IntersectionObserverInit,
-    stopWhenVisible = false
-  ) {
+    stopWhenVisible = false,
+  ): Observable<IntersectionObserverEntry> {
     return new Observable<IntersectionObserverEntry>((subscriber) => {
       const intersectionObserver = new IntersectionObserver(
         (entries, observer) => {
@@ -29,26 +29,26 @@ export class IntersectionObserverService {
             }
           });
         },
-        config
+        config,
       );
       this.elementObservers.push({ element, observer: intersectionObserver });
 
       intersectionObserver.observe(element);
 
       return {
-        unsubscribe() {
+        unsubscribe(): void {
           intersectionObserver.disconnect();
         },
       };
     });
   }
 
-  fromIntersectionObserverShare$ = (
+  public fromIntersectionObserverShare$ = (
     element: HTMLElement,
     config: IntersectionObserverInit,
-    stopWhenVisible = false
+    stopWhenVisible = false,
   ) =>
     this.fromIntersectionObserver$(element, config, stopWhenVisible).pipe(
-      share()
+      share(),
     )
 }

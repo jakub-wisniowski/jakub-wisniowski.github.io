@@ -3,14 +3,13 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'homepage-contact',
+  selector: 'jw-homepage-contact',
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
 })
 export class ContactComponent {
-  formSubmitted = false;
-
-  form: FormGroup;
+  public formSubmitted = false;
+  public form: FormGroup;
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.form = this.fb.group({
@@ -20,8 +19,7 @@ export class ContactComponent {
     });
   }
 
-
-  submit() {
+  public submit(): void {
     this.http
       .post('https://formspree.io/jakub.m.wisniowski@gmail.com', {
         name: this.form.controls.name.value,

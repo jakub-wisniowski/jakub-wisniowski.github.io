@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 
 @Directive({
-  selector: '[clickOutside]',
+  selector: '[jwClickOutside]',
 })
 export class ClickOutsideDirective {
   constructor(private elementRef: ElementRef) {}
@@ -16,9 +16,9 @@ export class ClickOutsideDirective {
   public clickOutside = new EventEmitter();
 
   @HostListener('document:click', ['$event.target'])
-  public onClick(targetElement) {
+  public onClick(targetElement): void {
     const clickedInside = this.elementRef.nativeElement.contains(
-      targetElement
+      targetElement,
     );
     if (!clickedInside) {
       this.clickOutside.emit(true);

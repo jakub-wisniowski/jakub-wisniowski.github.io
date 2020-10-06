@@ -1,16 +1,16 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'homepage-home-wrapper',
+  selector: 'jw-homepage-home-wrapper',
   templateUrl: './home-wrapper.component.html',
   styleUrls: ['./home-wrapper.component.scss'],
 })
 export class HomeWrapperComponent {
-  isCollapsed = true;
+  public isCollapsed = true;
 
   constructor() {}
 
-  scrollToSection(event, section) {
+  public scrollToSection(event, section): void {
     if (
       event instanceof MouseEvent ||
       (event instanceof KeyboardEvent && event.key === 'Enter')
