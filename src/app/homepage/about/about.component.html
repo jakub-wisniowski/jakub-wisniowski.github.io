@@ -1,0 +1,48 @@
+<h3 class="section-header">About me</h3>
+    <div class="container overflow-hidden">
+      <div
+        class="row justify-content-center align-items-center bio"
+        #bio
+        intersection
+        (visibilityChange)="handleIntersection($event, bio)"
+      >
+        <div id="imageWrapper" class="col-sm-12 col-md-4">
+          <img
+            class="profile-picture"
+            src="assets/images/profile.jpeg"
+            alt="Profile picture"
+          />
+        </div>
+
+        <div id="textWrapper" class="col-8 fs-26 text-justify">
+          <p>
+            I am a Frontend Developer with 2 years of experience. I graduated
+            from Computer Science at
+            <b>Poznan University of&nbsp;Technology</b> in February 2019.
+          </p>
+
+          <p>
+            I'm looking for mid level frontend or&nbsp;fullstack positions.
+            Right now, I'm working mainly in <b>Angular 9</b>. In my everyday
+            work I use Typescript, but I'm also familiar with Dart. For the last
+            6 months I worked on a project using technologies such as REST API,
+            RxJS, NgRx and ngx-bootstrap. I write and maintain unit and e2e
+            tests.
+          </p>
+
+          <p>
+            As a Computer Science Bachelor, I also have a basic understanding
+            of&nbsp;<b>Java</b>, <b>Python</b>,
+            <b>Kotlin</b> and&nbsp;<b>C#</b>.
+          </p>
+
+          <p>
+            Foreign languages are my passion, I've been studying
+            <b>English</b> at Adam Mickiewicz University, I also speak
+            <b>French</b> and have basic knowledge of <b>Danish</b>. After
+            working hours I translate texts and work on various IT solutions for
+            grassroots groups.
+          </p>
+        </div>
+      </div>
+    </div>

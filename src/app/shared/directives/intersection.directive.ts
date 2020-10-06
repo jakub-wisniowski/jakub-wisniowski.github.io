@@ -7,7 +7,7 @@ import {
   ElementRef,
   EventEmitter,
 } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Observer, Subscription } from 'rxjs';
 import { IntersectionObserverService } from '../services/intersection-observer.service';
 import {
   filter,
@@ -36,7 +36,7 @@ export class IntersectionDirective implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    const parentSub = this.findSub();
+    const parentSub = this.findSubByParamsComparizon();
 
     if (parentSub) {
       this.addElementToExistingSub(this.elRef.nativeElement, parentSub);
@@ -45,48 +45,42 @@ export class IntersectionDirective implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
-    const intersectionSub = this.findSub();
-    intersectionSub.subscription.unsubscribe();
+  private addElementToExistingSub(element: HTMLElement, parentSub) {
+    const elementObserver = this.findElementObserverFromParent(parentSub);
 
-    this.directiveSubs.forEach((sub) => sub.unsubscribe());
-    const el = this.elRef.nativeElement;
+    this.addElementToObserver(element, elementObserver);
+    this.addElementToParentElements(element, parentSub);
 
-    if (intersectionSub.elements.length > 1) {
-      this.intersectionObService.elementObservers
-        .find((o) => o.element === el)
-        .observer.unobserve(el);
-      this.intersectionObService.elementObservers = this.intersectionObService.elementObservers.filter(
-        (s) => s.element !== el
-      );
-      intersectionSub.elements = intersectionSub.elements.filter(
-        (e) => e !== el
-      );
-    } else {
-      this.intersectionObService.intersectionSubs = this.intersectionObService.intersectionSubs.filter(
-        (s) => s !== intersectionSub
-      );
-      this.intersectionObService.elementObservers = this.intersectionObService.elementObservers.filter(
-        (s) => s.element !== el
-      );
-    }
+    this.addObserverToArray(element, elementObserver);
+
+    this.addSubscription(element, parentSub);
   }
 
-  private addElementToExistingSub(element: HTMLElement, parentSub) {
-    // finds elementObserver connected to parent intersectionSub
-    const elementObserver = this.intersectionObService.elementObservers.find(
+  private findElementObserverFromParent(parentSub) {
+    return this.intersectionObService.elementObservers.find(
       (o) => (o.element = parentSub.elements[0])
     );
-    // makes the same observer watch new element
-    elementObserver.observer.observe(element);
-    parentSub.elements.push(element);
+  }
 
-    // adds new element observer to array
+  private addElementToObserver(element: HTMLElement, elementObserver) {
+    elementObserver.observer.observe(element);
+  }
+
+  private addElementToParentElements(element: HTMLElement, parentSub) {
+    parentSub.elements.push(element);
+  }
+
+  private addObserverToArray(element: HTMLElement, elementObserver) {
     this.intersectionObService.elementObservers.push({
       element,
       observer: elementObserver.observer,
     });
-    this.directiveSubs.push(this.subscribe(parentSub.observable$, element));
+  }
+
+  private addSubscription(element: HTMLElement, parentSub) {
+    this.directiveSubs.push(
+      this.listenToIntersections(parentSub.observable$, element)
+    );
   }
 
   private addNewSub(element: HTMLElement) {
@@ -101,7 +95,7 @@ export class IntersectionDirective implements OnInit, OnDestroy {
       this.stopWhenVisible
     );
 
-    const subscription = this.subscribe(observable$, element);
+    const subscription = this.listenToIntersections(observable$, element);
 
     const newSub = {
       subscription,
@@ -115,8 +109,7 @@ export class IntersectionDirective implements OnInit, OnDestroy {
     this.intersectionObService.addSubscription(newSub);
   }
 
-  // emits visibilityChange event if intersection detected for selected element
-  private subscribe(
+  private listenToIntersections(
     observable$: Observable<IntersectionObserverEntry>,
     element: HTMLElement
   ): Subscription {
@@ -134,14 +127,62 @@ export class IntersectionDirective implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  // finds subscription by comparing all params
-  private findSub() {
+  private findSubByParamsComparizon() {
     return this.intersectionObService.intersectionSubs.find(
       (s) =>
         s.intersectionRootMargin === this.intersectionRootMargin &&
         ((!s.intersectionThreshold && !this.intersectionThreshold) ||
           s.intersectionThreshold === this.intersectionThreshold) &&
         s.stopWhenVisible === this.stopWhenVisible
+    );
+  }
+
+  ngOnDestroy() {
+    const intersectionSub = this.findSubByParamsComparizon();
+    this.unsubIntersectionSub(intersectionSub);
+    this.unsubDirectiveSubs();
+
+    const el = this.elRef.nativeElement;
+
+    if (intersectionSub.elements.length > 1) {
+      this.removeElementFromSub(el, intersectionSub);
+      this.unobserveThisElement(el);
+      this.removeElementObserver(el);
+    } else {
+      this.removeIntersectionSub(intersectionSub);
+      this.removeElementObserver(el);
+    }
+  }
+
+  private unsubIntersectionSub(intersectionSub) {
+    intersectionSub.subscription.unsubscribe();
+  }
+
+  private unsubDirectiveSubs() {
+    this.directiveSubs.forEach((sub) => sub.unsubscribe());
+  }
+
+  private removeElementFromSub(el: HTMLElement, intersectionSub) {
+    intersectionSub.elements = intersectionSub.elements.filter(
+      (e: HTMLElement) => e !== el
+    );
+  }
+
+  private unobserveThisElement(el: HTMLElement) {
+    this.intersectionObService.elementObservers
+      .find((o) => o.element === el)
+      .observer.unobserve(el);
+  }
+
+  private removeIntersectionSub(intersectionSub) {
+    this.intersectionObService.intersectionSubs = this.intersectionObService.intersectionSubs.filter(
+      (s) => s !== intersectionSub
+    );
+  }
+
+  private removeElementObserver(el: HTMLElement) {
+    this.intersectionObService.elementObservers = this.intersectionObService.elementObservers.filter(
+      (s) => s.element !== el
     );
   }
 }

@@ -1,0 +1,117 @@
+<div class="content-wrapper">
+  <section class="page-header">
+    <div class="container">
+      <ul class="navigation">
+        <li>
+          <a
+            tabindex="0"
+            class="navigation-link border-link fs-34"
+            (click)="scrollToSection($event, about)"
+            (keydown)="scrollToSection($event, about)"
+            >ABOUT</a
+          >
+        </li>
+        <li>
+          <a
+            tabindex="0"
+            class="navigation-link border-link fs-34"
+            (click)="scrollToSection($event, projects)"
+            (keydown)="scrollToSection($event, projects)"
+            >PROJECTS</a
+          >
+        </li>
+        <li>
+          <a
+            tabindex="0"
+            class="navigation-link border-link fs-34"
+            (click)="scrollToSection($event, contact)"
+            (keydown)="scrollToSection($event, contact)"
+            >CONTACT</a
+          >
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <div
+    class="hamburger-menu"
+    [attr.aria-expanded]="!isCollapsed"
+    aria-controls="navigation"
+    (clickOutside)="isCollapsed = true"
+  >
+    <button (click)="isCollapsed = !isCollapsed" tabindex="0">
+      <img
+        src="assets/images/icons/hamburger.png"
+        width="50"
+        alt="toggle menu"
+      />
+    </button>
+    <div
+      id="navigation"
+      class="navigation-small"
+      [ngClass]="{ collapsed: isCollapsed }"
+    >
+      <ul>
+        <li tabindex="0" (keydown)="scrollToSection($event, about)">
+          <a
+            class="navigation-link-small"
+            (click)="scrollToSection($event, about)"
+            >ABOUT</a
+          >
+        </li>
+        <li tabindex="0" (keydown)="scrollToSection($event, projects)">
+          <a
+            class="navigation-link-small"
+            (click)="scrollToSection($event, projects)"
+            >PROJECTS</a
+          >
+        </li>
+        <li tabindex="0" (keydown)="scrollToSection($event, contact)">
+          <a
+            class="navigation-link-small"
+            (click)="scrollToSection($event, contact)"
+            >CONTACT</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+  <section class="banner">
+    <div class="banner-bg-opacity"></div>
+    <div class="my-name">
+      <h1>JAKUB WIŚNIOWSKI</h1>
+      <h2>FRONT-END DEVELOPER</h2>
+    </div>
+    <div class="my-places-center">
+      <div class="my-places">
+        <a
+          href="https://github.com/jakub-wisniowski"
+          data-tool-tip="Github profile"
+          target="-blank"
+          class="shortcut-img"
+        >
+          <img src="assets/images/icons/github.png" alt="Github profile" />
+        </a>
+        <a
+          href="https://www.linkedin.com/in/jakub-m-wisniowski/"
+          data-tool-tip="LinkedIn profile"
+          target="-blank"
+          class="shortcut-img"
+        >
+          <img src="assets/images/icons/linkedin.png" alt="LinkedIn profile" />
+        </a>
+      </div>
+    </div>
+  </section>
+  <section id="about" #about>
+    <homepage-about></homepage-about>
+  </section>
+
+  <section id="projects" #projects>
+    <homepage-projects-overview></homepage-projects-overview>
+  </section>
+
+  <section id="contact" #contact>
+    <homepage-contact></homepage-contact>
+  </section>
+</div>

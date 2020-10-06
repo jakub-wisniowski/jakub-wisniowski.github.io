@@ -25,6 +25,7 @@ export class ShowMoreButtonComponent {
   }
   toggleDescription() {
     this.isHidden = this.elementRef.classList.contains(this.toggleClass);
+
     if (this.isHidden) {
       this.elementRef.classList.remove(this.toggleClass);
     } else {

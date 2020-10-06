@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, Input } from '@angular/core';
+import { Component, TemplateRef, Input } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { IImage } from '../../../projects/models/image.model';
 
@@ -7,7 +7,7 @@ import { IImage } from '../../../projects/models/image.model';
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss'],
 })
-export class GalleryComponent implements OnInit {
+export class GalleryComponent {
   @Input()
   slides: IImage[];
 
@@ -16,11 +16,17 @@ export class GalleryComponent implements OnInit {
   modalRef: BsModalRef;
 
   constructor(private modalService: BsModalService) {}
-  ngOnInit() {}
 
-  openModal(template: TemplateRef<any>, img: IImage) {
+  handleSlideSelected(template: TemplateRef<any>, img: IImage) {
+    this.setChosenImage(img);
+    this.showModal(template);
+  }
+
+  setChosenImage(img: IImage) {
     this.chosenImage = img;
+  }
 
+  showModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(
       template,
       Object.assign({}, { class: 'gray modal-lg' })

@@ -134,106 +134,10 @@
   }
 }
 
-.bio {
-  padding: 50px 0;
-
-  #imageWrapper {
-    opacity: 0;
-    transform: translateX(-300px);
-    transition: opacity 5s cubic-bezier(0.17, 0.67, 0.61, 0.96),
-      transform 1s cubic-bezier(0.17, 0.67, 0.61, 0.96);
-    .profile-picture {
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      margin-right: 1em;
-      border: 7px solid $accent;
-    }
-  }
-
-  #textWrapper {
-    opacity: 0;
-    transform: translateX(600px);
-    transition: opacity 5s cubic-bezier(0.17, 0.67, 0.61, 0.96),
-      transform 1s cubic-bezier(0.17, 0.67, 0.61, 0.96);
-  }
-
-  &.intersecting {
-    #imageWrapper,
-    #textWrapper {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-}
-
-.instruction {
-  text-align: center;
-  padding-top: 50px;
-}
-
 #contact {
   position: relative;
   width: 100%;
   height: 700px;
   margin: 0;
   padding: 0;
-  form {
-    padding: 0 10%;
-    margin-top: 2%;
-    opacity: 0.9;
-    display: flex;
-    flex-direction: column;
-
-    label {
-      border: 0;
-      clip: rect(0 0 0 0);
-      height: 1px;
-      margin: -1px;
-      overflow: hidden;
-      padding: 0;
-      position: absolute;
-      width: 1px;
-    }
-    .form-control {
-      margin-bottom: 10px;
-    }
-  }
-
-  .contact-opacity {
-    opacity: 0.3;
-    background-image: url($img_prefix + "background/keyboard.jpg");
-    width: 100%;
-    height: 100%;
-    top: 70px;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-    background-position: center;
-    position: absolute;
-    z-index: -1;
-  }
-}
-
-.alert-danger {
-  color: red;
-  text-align: left;
-  padding: 0 0 10px 0;
-  font-weight: bold;
-}
-
-#thank-you-message {
-  position: relative;
-  border-radius: 5px;
-  margin: 20px 20%;
-  font-weight: 600;
-  border: 2px solid $blue;
-  padding: 10px;
-  background: white;
-  opacity: 0;
-  transition: opacity 300ms cubic-bezier(0.6, -0.28, 0.735, 0.045);
-
-  &.visible {
-    opacity: 0.8;
-  }
 }

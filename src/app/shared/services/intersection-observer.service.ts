@@ -13,6 +13,7 @@ export class IntersectionObserverService {
     this.intersectionSubs.push(subscription);
     return this.intersectionSubs.length - 1;
   }
+
   fromIntersectionObserver$(
     element: HTMLElement,
     config: IntersectionObserverInit,
@@ -42,15 +43,12 @@ export class IntersectionObserverService {
     });
   }
 
-  fromIntersectionObserverShare$(
+  fromIntersectionObserverShare$ = (
     element: HTMLElement,
     config: IntersectionObserverInit,
     stopWhenVisible = false
-  ) {
-    return this.fromIntersectionObserver$(
-      element,
-      config,
-      stopWhenVisible
-    ).pipe(share());
-  }
+  ) =>
+    this.fromIntersectionObserver$(element, config, stopWhenVisible).pipe(
+      share()
+    )
 }

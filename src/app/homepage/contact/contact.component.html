@@ -1,0 +1,84 @@
+<div class="contact-opacity"></div>
+<h3 class="section-header">Contact</h3>
+<div class="container">
+  <div class="row">
+    <p class="instruction fs-26 w-100">
+      Contact me via the form below or send an email to the following address:
+      <a
+        href="mailto:jakub.m.wisniowski@gmail.com"
+        class="border-link"
+        data-tool-tip="open in your email client"
+        >jakub.m.wisniowski@gmail.com</a
+      >
+    </p>
+  </div>
+  <div class="row">
+    <form
+      [formGroup]="form"
+      (ngSubmit)="submit()"
+      id="contact-form"
+      class="col col-12"
+    >
+      <label for="name">Name</label>
+      <input
+        id="name"
+        class="form-control"
+        name="name"
+        placeholder="Name"
+        type="text"
+        formControlName="name"
+      />
+      <div
+        *ngIf="form.controls.name.touched && form.controls.name.invalid"
+        class="alert alert-danger p-2"
+      >
+        Name is required.
+      </div>
+      <label for="email">Email</label>
+      <input
+        id="email"
+        class="form-control"
+        name="email"
+        placeholder="Email"
+        type="email"
+        formControlName="email"
+      />
+      <div
+        *ngIf="form.controls.email.touched && form.controls.email.invalid"
+        class="alert alert-danger p-2"
+      >
+        <ng-container *ngIf="form.controls.email.errors.required"
+          >Email is required.</ng-container
+        >
+        <ng-container *ngIf="form.controls.email.errors.email"
+          >Incorrect email address.</ng-container
+        >
+      </div>
+      <label for="message">Your message</label>
+      <textarea
+        id="message"
+        class="form-control"
+        name="message"
+        placeholder="Message"
+        rows="5"
+        formControlName="message"
+      ></textarea>
+      <div
+        *ngIf="form.controls.message.touched && form.controls.message.invalid"
+        class="alert alert-danger p-2"
+      >
+        Message is required.
+      </div>
+      <button
+        class="btn btn-default"
+        type="submit"
+        [disabled]="form.invalid"
+      >
+        Send
+      </button>
+    </form>
+  </div>
+  <div id="thank-you-message" [ngClass]="{ visible: formSubmitted }">
+    Thanks for contacting me!
+  </div>
+</div>

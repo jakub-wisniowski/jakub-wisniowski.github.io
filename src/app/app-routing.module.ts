@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './homepage/home/home.component';
+import { HomeWrapperComponent } from './homepage/home-wrapper/home-wrapper.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: HomeWrapperComponent },
   {
     path: 'projects',
     loadChildren: () =>
