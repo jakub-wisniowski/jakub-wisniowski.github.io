@@ -1,0 +1,8 @@
+@font-face {
+	font-family: "Elegant Lux Mager";
+	src: url("./ElegantLux-Mager/ElegantLux-Mager.eot");
+	src: url("./ElegantLux-Mager/ElegantLux-Mager.eot?#iefix") format("embedded-opentype"),
+	url("./ElegantLux-Mager/ElegantLux-Mager.woff") format("woff"),
+	url("./ElegantLux-Mager/ElegantLux-Mager.ttf") format("truetype"),
+	url("./ElegantLux-Mager/ElegantLux-Mager.svg#ElegantLux-Mager") format("svg");
+}
